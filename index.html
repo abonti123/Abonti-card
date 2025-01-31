@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Card Flip</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+        }
+        .card-container {
+            perspective: 1000px;
+        }
+        .card {
+            width: 300px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flipped {
+            transform: rotateY(180deg);
+        }
+        .card .side {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .front {
+            background: #ff6f61;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .back {
+            background: white;
+            color: #ff6f61;
+            font-size: 20px;
+            font-weight: bold;
+            transform: rotateY(180deg);
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <div class="card-container">
+        <div class="card" onclick="flipCard()">
+            <div class="side front">Tap to Reveal I have a surprise for you 💖</div>
+            <div class="side back">You are a fool! 💕</div>
+        </div>
+    </div>
+    <script>
+        function flipCard() {
+            let card = document.querySelector(".card");
+            card.classList.toggle("flipped");
+            let music = document.getElementById("bg-music");
+            if (!music.playing) {
+                music.play().catch(error => console.log("Autoplay prevented: ", error));
+            }
+        }
+    </script>
+</body>
+</html>
